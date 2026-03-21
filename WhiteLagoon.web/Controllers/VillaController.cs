@@ -62,6 +62,8 @@ namespace WhiteLagoon.web.Controllers
             if (!ModelState.IsValid)
                 return View(villa);
 
+            villa.UpdateDate = new DateTime();
+            villa.UpdateDate = DateTime.Now;
             _Context.Villas.Update(villa);
 
             if (_Context.SaveChanges() > 0)

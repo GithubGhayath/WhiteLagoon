@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -22,5 +23,8 @@ namespace WhiteLagoon.Domain.Entities
         public string? ImageUrl {  get; set; }
         public DateTime? CreateDate {  get; set; }
         public DateTime? UpdateDate {  get; set; }
+
+        [ValidateNever]
+        public ICollection<VillaNumber> VillaNumbers { get; set; }
     }
 }
