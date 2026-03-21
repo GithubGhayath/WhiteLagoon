@@ -1,0 +1,138 @@
+﻿@model Villa
+
+@{
+    ViewData["Title"] = "Create Villa";
+}
+
+<style>
+    body {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+
+    .villa-container {
+        margin-top: 50px;
+        max-width: 700px;
+    }
+
+    .villa-card {
+        background: #1e1e2f;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+    }
+
+    .villa-title {
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 25px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #cfcfcf;
+    }
+
+    .form-control {
+        background-color: #2c2c3a;
+        border: 1px solid #444;
+        color: #fff;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+        .form-control:focus {
+            background-color: #2c2c3a;
+            color: #fff;
+            border-color: #0d6efd;
+            box-shadow: none;
+        }
+
+    .btn-submit {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: 0.3s;
+    }
+
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #0a58ca, #084298);
+            transform: translateY(-2px);
+        }
+
+    .btn-back {
+        margin-left: 10px;
+    }
+
+    .text-danger {
+        font-size: 0.9rem;
+    }
+</style>
+
+<div class="container villa-container">
+    <div class="villa-card">
+        <h2 class="villa-title">
+            <i class="bi bi-house-add"></i> Add New Villa
+        </h2>
+
+        <form asp-action="Create" method="post">
+
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input asp-for="@Model.Name" class="form-control" placeholder="Enter villa name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea asp-for="@Model.Description" class="form-control" rows="3" placeholder="Enter description"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Price</label>
+                <input asp-for="@Model.Price" class="form-control" type="number" step="0.01" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Square Feet (Sqft)</label>
+                <input asp-for="@Model.Sqft" class="form-control" type="number" />
+                <span asp-validation-for="Sqft" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Occupancy</label>
+                <input asp-for="@Model.Occupancy" class="form-control" type="number" />
+                <span asp-validation-for="Occupancy" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Image URL</label>
+                <input asp-for="@Model.ImageUrl" class="form-control" placeholder="https://..." />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex mt-4">
+                <button type="submit" class="btn btn-submit">
+                    <i class="bi bi-save"></i> Save Villa
+                </button>
+
+                <a asp-controller="Villa" asp-action="Index" class="btn btn-secondary btn-back">
+                    <i class="bi bi-arrow-left"></i> Cancel
+                </a>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

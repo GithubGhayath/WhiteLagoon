@@ -1,0 +1,117 @@
+﻿@model Villa
+
+@{
+    ViewData["Title"] = "Delete Villa";
+}
+
+<style>
+    .delete-container {
+        margin-top: 40px;
+        max-width: 700px;
+        background-color: #212529;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+        color: #f8f9fa;
+    }
+
+    .delete-header {
+        margin-bottom: 20px;
+    }
+
+    .delete-title {
+        font-weight: 700;
+        color: #ff6b6b;
+    }
+
+    .delete-warning {
+        background-color: #2c2f33;
+        border-left: 5px solid #dc3545;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        color: #f8d7da;
+    }
+
+    .villa-info {
+        background-color: #343a40;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+    }
+
+        .villa-info p {
+            margin: 5px 0;
+        }
+
+    .label {
+        font-weight: 600;
+        color: #adb5bd;
+    }
+
+    .value {
+        color: #f8f9fa;
+    }
+
+    .btn-delete {
+        background: linear-gradient(135deg, #dc3545, #a71d2a);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        transition: 0.3s;
+    }
+
+        .btn-delete:hover {
+            background: linear-gradient(135deg, #a71d2a, #7f1320);
+            transform: translateY(-2px);
+        }
+
+    .btn-cancel {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        margin-left: 10px;
+        transition: 0.3s;
+    }
+
+        .btn-cancel:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="container delete-container">
+    <div class="delete-header">
+        <h2 class="delete-title">
+            <i class="bi bi-exclamation-triangle"></i> Delete Villa
+        </h2>
+    </div>
+
+    <div class="delete-warning">
+        ⚠️ Are you sure you want to delete this villa? This action cannot be undone.
+    </div>
+
+    <div class="villa-info">
+        <p><span class="label">Name:</span> <span class="value">@Model.Name</span></p>
+        <p><span class="label">Price:</span> <span class="value">@Model.Price.ToString("C")</span></p>
+        <p><span class="label">Sqft:</span> <span class="value">@Model.Sqft</span></p>
+        <p><span class="label">Occupancy:</span> <span class="value">@Model.Occupancy persons</span></p>
+    </div>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+
+        <button type="submit" class="btn btn-delete">
+            <i class="bi bi-trash"></i> Confirm Delete
+        </button>
+
+        <a asp-action="Index" class="btn btn-cancel">
+            <i class="bi bi-x-circle"></i> Cancel
+        </a>
+    </form>
+</div>
