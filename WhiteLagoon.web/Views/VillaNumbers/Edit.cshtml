@@ -1,0 +1,125 @@
+﻿@model VillaNumberVM
+
+@{
+    ViewData["Title"] = "Edit Villa Number";
+}
+
+<style>
+    .edit-container {
+        margin-top: 40px;
+        max-width: 800px;
+        background-color: #212529;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+        color: #f8f9fa;
+    }
+
+    .edit-title {
+        font-weight: 700;
+        margin-bottom: 25px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #f8f9fa;
+    }
+
+    .form-control, .form-select {
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 5px;
+        background-color: #343a40;
+        border: 1px solid #495057;
+        color: #f8f9fa;
+    }
+
+        .form-control:focus, .form-select:focus {
+            background-color: #495057;
+            color: #f8f9fa;
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.2rem rgba(13,110,253,.25);
+        }
+
+    .field-validation {
+        display: block;
+        min-height: 1.25em;
+        margin-bottom: 10px;
+        color: #ff6b6b;
+        font-size: 0.875rem;
+    }
+
+    .btn-save {
+        background: linear-gradient(135deg, #0d6efd, #0056b3);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: 0.3s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+        .btn-save:hover {
+            background: linear-gradient(135deg, #0056b3, #004080);
+            transform: translateY(-2px);
+        }
+
+    .btn-cancel {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        margin-left: 10px;
+        transition: 0.3s;
+    }
+
+        .btn-cancel:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="container edit-container">
+    <h2 class="edit-title">
+        <i class="bi bi-pencil-square"></i> Edit Villa Number
+    </h2>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="@Model.VillaNumbre.Villa_Number" />
+
+        <div asp-validation-summary="ModelOnly" class="field-validation"></div>
+
+        <!-- Villa Number -->
+        <label asp-for="@Model.VillaNumbre.Villa_Number" class="form-label"></label>
+        <input asp-for="@Model.VillaNumbre.Villa_Number" class="form-control" readonly /> <!-- Villa Number  is primary key it should not be changed "readonly"-->
+        <span asp-validation-for="@Model.VillaNumbre.Villa_Number" class="field-validation"></span>
+
+        <!-- Villa Dropdown -->
+        <label asp-for="@Model.VillaNumbre.VillaId" class="form-label">Villa</label>
+        <select asp-for="@Model.VillaNumbre.VillaId" class="form-select" asp-items="@Model.Villas">
+            <option disabled>-- Select Villa --</option>
+        </select>
+        <span asp-validation-for="@Model.VillaNumbre.VillaId" class="field-validation"></span>
+
+        <!-- Special Details -->
+        <label asp-for="@Model.VillaNumbre.SpecialDetails" class="form-label"></label>
+        <textarea asp-for="@Model.VillaNumbre.SpecialDetails" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="@Model.VillaNumbre.SpecialDetails" class="field-validation"></span>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-save">
+                <i class="bi bi-check-circle"></i> Save Changes
+            </button>
+
+            <a asp-action="Index" class="btn btn-cancel">
+                <i class="bi bi-x-circle"></i> Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,176 @@
+﻿@model IEnumerable<VillaNumber>
+
+@{
+    ViewData["Title"] = "Villa Numbers";
+}
+
+<style>
+    .villa-number-container {
+        margin-top: 40px;
+    }
+
+    .villa-number-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .villa-number-title {
+        font-weight: 700;
+        color: #f8f9fa;
+    }
+
+    .btn-add {
+        background: linear-gradient(135deg, #28a745, #218838);
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: 0.3s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+        .btn-add:hover {
+            background: linear-gradient(135deg, #218838, #1e7e34);
+            transform: translateY(-2px);
+        }
+
+    .table-custom {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+    }
+
+        .table-custom thead {
+            background: linear-gradient(135deg, #343a40, #212529);
+            color: white;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .table-custom tbody tr {
+            transition: 0.2s;
+        }
+
+            .table-custom tbody tr:hover {
+                background-color: #2c3034;
+                transform: scale(1.01);
+            }
+
+    .villa-name {
+        font-weight: 600;
+        color: #0dcaf0;
+    }
+
+    .villa-number-badge {
+        background-color: #6f42c1;
+        color: white;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+    }
+
+    .details {
+        color: #adb5bd;
+        font-size: 14px;
+    }
+
+    .btn-action {
+        margin-right: 5px;
+        padding: 5px 12px;
+        font-size: 14px;
+        border-radius: 6px;
+        transition: 0.2s;
+    }
+
+    .btn-edit {
+        background-color: #ffc107;
+        color: #212529;
+        border: none;
+    }
+
+        .btn-edit:hover {
+            background-color: #e0a800;
+            transform: translateY(-1px);
+        }
+
+    .btn-delete {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+    }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+            transform: translateY(-1px);
+        }
+
+    .empty-state {
+        margin-top: 20px;
+        text-align: center;
+    }
+</style>
+
+<div class="container villa-number-container">
+    <div class="villa-number-header">
+        <h2 class="villa-number-title">
+            <i class="bi bi-hash"></i> Villa Numbers
+        </h2>
+
+        <a asp-action="Create" class="btn btn-add">
+            <i class="bi bi-plus-circle"></i> Add Villa Number
+        </a>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-warning empty-state">
+            No villa numbers available.
+        </div>
+    }
+    else
+    {
+        <table class="table table-hover table-custom">
+            <thead>
+                <tr>
+                    <th>Villa Name</th>
+                    <th>Villa Number</th>
+                    <th>Special Details</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="villa-name">
+                            @item.Villa?.Name
+                        </td>
+
+                        <td>
+                            <span class="villa-number-badge">
+                                #@item.Villa_Number
+                            </span>
+                        </td>
+
+                        <td class="details">
+                            @(string.IsNullOrEmpty(item.SpecialDetails) ? "—" : item.SpecialDetails)
+                        </td>
+
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Villa_Number" class="btn btn-action btn-edit">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+
+                            <a asp-action="Delete" asp-route-id="@item.Villa_Number" class="btn btn-action btn-delete">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

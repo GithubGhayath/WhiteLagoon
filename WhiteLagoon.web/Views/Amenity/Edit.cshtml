@@ -1,0 +1,128 @@
+﻿@model AmenityVM
+
+@{
+    ViewData["Title"] = "Edit Amenity";
+}
+
+<style>
+    .edit-container {
+        margin-top: 40px;
+        max-width: 750px;
+        background-color: #212529;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+        color: #f8f9fa;
+    }
+
+    .edit-title {
+        font-weight: 700;
+        margin-bottom: 25px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #f8f9fa;
+    }
+
+    .form-control, .form-select {
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 5px;
+        background-color: #343a40;
+        border: 1px solid #495057;
+        color: #f8f9fa;
+    }
+
+        .form-control:focus, .form-select:focus {
+            background-color: #495057;
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.2rem rgba(13,110,253,.25);
+        }
+
+    .field-validation {
+        display: block;
+        min-height: 1.25em;
+        margin-bottom: 10px;
+        color: #ff6b6b;
+        font-size: 0.875rem;
+    }
+
+    .btn-update {
+        background: linear-gradient(135deg, #0d6efd, #0056b3);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: 0.3s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+        .btn-update:hover {
+            background: linear-gradient(135deg, #0056b3, #004080);
+            transform: translateY(-2px);
+        }
+
+    .btn-cancel {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        margin-left: 10px;
+        transition: 0.3s;
+    }
+
+        .btn-cancel:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="container edit-container">
+
+    <h2 class="edit-title">
+        <i class="bi bi-pencil-square"></i> Edit Amenity
+    </h2>
+
+    <form asp-action="Edit" method="post">
+
+        <input type="hidden" asp-for="@Model.Amenity.Id" />
+
+        <div asp-validation-summary="ModelOnly" class="field-validation"></div>
+
+        <!-- Name -->
+        <label asp-for="@Model.Amenity.Name" class="form-label"></label>
+        <input asp-for="@Model.Amenity.Name" class="form-control" />
+        <span asp-validation-for="@Model.Amenity.Name" class="field-validation"></span>
+
+        <!-- Description -->
+        <label asp-for="@Model.Amenity.Description" class="form-label"></label>
+        <textarea asp-for="@Model.Amenity.Description" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="@Model.Amenity.Description" class="field-validation"></span>
+
+        <!-- Villa Dropdown -->
+        <label asp-for="@Model.Amenity.VillaId" class="form-label">Villa</label>
+        <select asp-for="@Model.Amenity.VillaId" class="form-select" asp-items="@Model.Villas">
+        </select>
+        <span asp-validation-for="@Model.Amenity.VillaId" class="field-validation"></span>
+
+        <!-- Buttons -->
+        <div class="mt-4">
+            <button type="submit" class="btn btn-update">
+                <i class="bi bi-save"></i> Update
+            </button>
+
+            <a asp-action="Index" class="btn btn-cancel">
+                Cancel
+            </a>
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -8,7 +8,7 @@
     .edit-container {
         margin-top: 40px;
         max-width: 800px;
-        background-color: #212529; /* dark background */
+        background-color: #212529;
         padding: 30px;
         border-radius: 12px;
         box-shadow: 0 6px 15px rgba(0,0,0,0.5);
@@ -24,18 +24,16 @@
 
     .edit-title {
         font-weight: 700;
-        color: #f8f9fa;
     }
 
     .form-label {
         font-weight: 600;
-        color: #f8f9fa;
     }
 
     .form-control {
         border-radius: 8px;
         padding: 10px;
-        margin-bottom: 5px; /* slightly smaller to leave room for error */
+        margin-bottom: 5px;
         background-color: #343a40;
         border: 1px solid #495057;
         color: #f8f9fa;
@@ -43,7 +41,6 @@
 
         .form-control:focus {
             background-color: #495057;
-            color: #f8f9fa;
             border-color: #007bff;
             box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
         }
@@ -54,86 +51,105 @@
         border: none;
         padding: 10px 20px;
         border-radius: 8px;
-        font-weight: 500;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         transition: 0.3s;
     }
 
         .btn-save:hover {
-            background: linear-gradient(135deg, #0056b3, #004080);
             transform: translateY(-2px);
         }
 
     .btn-cancel {
         background-color: #6c757d;
         color: white;
-        border: none;
-        padding: 10px 20px;
         border-radius: 8px;
         margin-left: 10px;
-        transition: 0.3s;
     }
 
-        .btn-cancel:hover {
-            background-color: #5a6268;
-            transform: translateY(-2px);
-        }
-
-    .validation-summary {
-        margin-bottom: 20px;
-        color: #ff6b6b;
-        font-weight: 500;
-    }
-
-    /* NEW: fixed height for validation messages to prevent layout shift */
     .field-validation {
         display: block;
-        min-height: 1.25em; /* reserve space for errors */
+        min-height: 1.25em;
         margin-bottom: 10px;
         color: #ff6b6b;
-        font-weight: 500;
         font-size: 0.875rem;
+    }
+
+    .image-box {
+        margin-top: 15px;
+    }
+
+    .image-preview {
+        max-height: 200px;
+        border-radius: 10px;
+        display: block;
+        margin-top: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.4);
     }
 </style>
 
 <div class="container edit-container">
     <div class="edit-header">
-        <h2 class="edit-title"><i class="bi bi-pencil-square"></i> Edit Villa</h2>
+        <h2 class="edit-title">
+            <i class="bi bi-pencil-square"></i> Edit Villa
+        </h2>
     </div>
 
-    <form asp-action="Edit" method="post">
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
         <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="CreateDate" />
+        <input type="hidden" asp-for="ImageUrl" /> <!-- keep old image -->
 
+        <div asp-validation-summary="ModelOnly" class="field-validation"></div>
 
+        <!-- Name -->
         <label asp-for="Name" class="form-label"></label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="field-validation"></span>
 
+        <!-- Description -->
         <label asp-for="Description" class="form-label"></label>
         <textarea asp-for="Description" class="form-control" rows="3"></textarea>
         <span asp-validation-for="Description" class="field-validation"></span>
 
+        <!-- Price -->
         <label asp-for="Price" class="form-label"></label>
         <input asp-for="Price" class="form-control" type="number" step="0.01" />
         <span asp-validation-for="Price" class="field-validation"></span>
 
+        <!-- Sqft -->
         <label asp-for="Sqft" class="form-label"></label>
         <input asp-for="Sqft" class="form-control" type="number" />
         <span asp-validation-for="Sqft" class="field-validation"></span>
 
+        <!-- Occupancy -->
         <label asp-for="Occupancy" class="form-label"></label>
         <input asp-for="Occupancy" class="form-control" type="number" />
         <span asp-validation-for="Occupancy" class="field-validation"></span>
 
-        <label asp-for="ImageUrl" class="form-label"></label>
-        <input asp-for="ImageUrl" class="form-control" />
-        <span asp-validation-for="ImageUrl" class="field-validation"></span>
+        <!-- Current Image -->
+        <div class="image-box">
+            <label class="form-label">Current Image</label>
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" class="image-preview" id="currentImage" />
+            }
+        </div>
 
+        <!-- Upload New Image -->
+        <div class="image-box">
+            <label class="form-label">Change Image</label>
+            <input asp-for="Image" type="file" class="form-control" accept="image/*" />
+            <span asp-validation-for="Image" class="field-validation"></span>
+
+            <!-- Preview -->
+            <img id="previewImage" class="image-preview" style="display:none;" />
+        </div>
+
+        <!-- Buttons -->
         <div class="mt-4">
             <button type="submit" class="btn btn-save">
                 <i class="bi bi-save"></i> Save Changes
             </button>
+
             <a asp-action="Index" class="btn btn-cancel">
                 <i class="bi bi-x-circle"></i> Cancel
             </a>
@@ -143,4 +159,29 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        document.querySelector('input[type="file"]').addEventListener('change', function (e) {
+
+            const file = e.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const preview = document.getElementById("previewImage");
+                    const current = document.getElementById("currentImage");
+
+                    preview.src = e.target.result;
+                    preview.style.display = "block";
+
+                    if (current) {
+                        current.style.display = "none"; // hide old image
+                    }
+                }
+
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 }

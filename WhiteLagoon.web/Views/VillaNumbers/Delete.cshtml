@@ -1,0 +1,128 @@
+﻿@model VillaNumber
+
+@{
+    ViewData["Title"] = "Delete Villa Number";
+}
+
+<style>
+    .delete-container {
+        margin-top: 40px;
+        max-width: 700px;
+        background-color: #212529;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+        color: #f8f9fa;
+    }
+
+    .delete-title {
+        font-weight: 700;
+        color: #ff6b6b;
+        margin-bottom: 20px;
+    }
+
+    .delete-warning {
+        background-color: #2c2f33;
+        border-left: 5px solid #dc3545;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        color: #f8d7da;
+    }
+
+    .info-box {
+        background-color: #343a40;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+    }
+
+    .label {
+        font-weight: 600;
+        color: #adb5bd;
+    }
+
+    .value {
+        color: #f8f9fa;
+    }
+
+    .villa-number-badge {
+        background-color: #6f42c1;
+        color: white;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+    }
+
+    .btn-delete {
+        background: linear-gradient(135deg, #dc3545, #a71d2a);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: 0.3s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+        .btn-delete:hover {
+            background: linear-gradient(135deg, #a71d2a, #7f1320);
+            transform: translateY(-2px);
+        }
+
+    .btn-cancel {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        margin-left: 10px;
+        transition: 0.3s;
+    }
+
+        .btn-cancel:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="container delete-container">
+    <h2 class="delete-title">
+        <i class="bi bi-exclamation-triangle"></i> Delete Villa Number
+    </h2>
+
+    <div class="delete-warning">
+        ⚠️ Are you sure you want to delete this villa number? This action cannot be undone.
+    </div>
+
+    <div class="info-box">
+        <p>
+            <span class="label">Villa Name:</span>
+            <span class="value">@Model.Villa?.Name</span>
+        </p>
+
+        <p>
+            <span class="label">Villa Number:</span>
+            <span class="villa-number-badge">#@Model.Villa_Number</span>
+        </p>
+
+        <p>
+            <span class="label">Special Details:</span>
+            <span class="value">
+                @(string.IsNullOrEmpty(Model.SpecialDetails) ? "—" : Model.SpecialDetails)
+            </span>
+        </p>
+    </div>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Villa_Number" />
+
+        <button type="submit" class="btn btn-delete">
+            <i class="bi bi-trash"></i> Confirm Delete
+        </button>
+
+        <a asp-action="Index" class="btn btn-cancel">
+            <i class="bi bi-x-circle"></i> Cancel
+        </a>
+    </form>
+</div>

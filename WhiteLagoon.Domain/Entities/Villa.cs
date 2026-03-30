@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace WhiteLagoon.Domain.Entities
@@ -19,12 +21,15 @@ namespace WhiteLagoon.Domain.Entities
         public int Sqft {  get; set; }
         [Range(1, 20)]
         public int Occupancy {  get; set; }
-        [Url]
+      
         public string? ImageUrl {  get; set; }
+        [NotMapped]
+        public IFormFile? Image { get; set; }
         public DateTime? CreateDate {  get; set; }
         public DateTime? UpdateDate {  get; set; }
 
         [ValidateNever]
         public ICollection<VillaNumber> VillaNumbers { get; set; }
+        public ICollection<Amenity> Amenities { get; set; }=new List<Amenity>();
     }
 }
