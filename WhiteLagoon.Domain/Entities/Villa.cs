@@ -14,7 +14,7 @@ namespace WhiteLagoon.Domain.Entities
         [Required]
         public required string Name { get; set; }
         [Required]
-        public string? Description { get; set; }
+        public string? Description { get; set; } 
         [Range(1, 10000)]
         public double Price {  get; set; }
         [Range(100, 10000)]
@@ -31,5 +31,6 @@ namespace WhiteLagoon.Domain.Entities
         [ValidateNever]
         public ICollection<VillaNumber> VillaNumbers { get; set; }
         public ICollection<Amenity> Amenities { get; set; }=new List<Amenity>();
+        public ICollection<Book> Books { get; set; } = new List<Book>();
     }
 }
