@@ -15,12 +15,15 @@ namespace WhiteLagoon.Infrastructure.Repositories
             Villa = new VillaRepository(_Context);
             VillaNumber = new VillaNumberRepository(_Context);
             Amenity = new AmenityRepository(_Context);
+            PaymentMethod = new PaymentMethodRepository(_Context);
         }
         public IVillaRepository Villa { get; private set; }
 
         public IVillaNumberRepository VillaNumber { get; private set; }
 
         public IAmenityReopsitory Amenity { get; private set; }
+
+        public IPaymentMethodRepository PaymentMethod { get; private set; }
 
         public int Save()
         {

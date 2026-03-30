@@ -1,0 +1,173 @@
+﻿@model IEnumerable<PaymentMethod>
+
+@{
+    ViewData["Title"] = "Payment Methods";
+}
+
+<style>
+    body {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+
+    .container-box {
+        margin-top: 50px;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .title {
+        font-weight: 700;
+        color: #ffffff;
+    }
+
+    .btn-create {
+        background: linear-gradient(135deg, #198754, #146c43);
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+
+        .btn-create:hover {
+            transform: translateY(-2px);
+        }
+
+    .table-container {
+        background: #1e1e2f;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+    }
+
+    table {
+        width: 100%;
+        color: #f8f9fa;
+    }
+
+    th {
+        color: #adb5bd;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        border-bottom: 1px solid #444;
+    }
+
+    td {
+        padding: 14px 0;
+        border-bottom: 1px solid #2c2f33;
+    }
+
+    tr:hover {
+        background-color: rgba(255,255,255,0.03);
+    }
+
+    .method-badge {
+        background-color: #0d6efd;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+    }
+
+    .btn-action {
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        margin-right: 5px;
+        color: white;
+        transition: 0.3s;
+    }
+
+    .btn-edit {
+        background: linear-gradient(135deg, #0d6efd, #084298);
+    }
+
+    .btn-delete {
+        background: linear-gradient(135deg, #dc3545, #a71d2a);
+    }
+
+    .btn-action:hover {
+        transform: translateY(-2px);
+    }
+
+    .no-data {
+        text-align: center;
+        padding: 30px;
+        color: #888;
+    }
+</style>
+
+<div class="container container-box">
+
+    <!-- Header -->
+    <div class="header">
+        <h2 class="title">
+            <i class="bi bi-credit-card"></i> Payment Methods
+        </h2>
+
+        <a asp-action="Create" class="btn btn-create">
+            <i class="bi bi-plus-circle"></i> Add Method
+        </a>
+    </div>
+
+    <!-- Table -->
+    <div class="table-container">
+        <table class="table table-borderless">
+
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                    <th style="width:150px;">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <span class="method-badge">
+                                    @item.Method
+                                </span>
+                            </td>
+
+                            <td>
+                                <span style="color:#cfcfcf;">
+                                    @item.Description
+                                </span>
+                            </td>
+
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-action btn-edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-action btn-delete">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3" class="no-data">
+                            🚫 No payment methods found.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+</div>

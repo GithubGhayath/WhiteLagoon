@@ -9,6 +9,7 @@ namespace WhiteLagoon.Application.Common.Interfaces
         IVillaRepository Villa { get; }
         IVillaNumberRepository VillaNumber { get; }
         IAmenityReopsitory Amenity { get; }
+        IPaymentMethodRepository PaymentMethod { get; }
         int Save();
     }
 }
