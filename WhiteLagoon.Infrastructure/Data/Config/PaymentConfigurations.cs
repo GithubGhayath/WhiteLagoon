@@ -22,11 +22,11 @@ namespace WhiteLagoon.Infrastructure.Data.Config
             builder.Property(p => p.CompletedAt).IsRequired(false);
             builder.HasIndex(p => p.UserId);
             builder.HasIndex(p => p.PaymentMethodId);
-            builder.HasIndex(p => p.PaymentStatusId);
+            builder.HasIndex(p => p.StatusId);
             builder.HasIndex(p => p.TransactionId);
 
             builder.HasOne(p => p.PaymentMethod).WithMany(pm => pm.Payments).HasForeignKey(p => p.PaymentMethodId).IsRequired(true);
-            builder.HasOne(p => p.PaymentStatus).WithMany(ps => ps.Payments).HasForeignKey(p => p.PaymentStatusId).IsRequired(true);
+            builder.HasOne(p => p.PaymentStatus).WithMany(ps => ps.Payments).HasForeignKey(p => p.StatusId).IsRequired(true);
             builder.HasOne(p => p.User).WithMany(u => u.Payments).HasForeignKey(p => p.UserId).IsRequired(true);
 
         }

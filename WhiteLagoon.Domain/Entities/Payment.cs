@@ -12,7 +12,7 @@ namespace WhiteLagoon.Domain.Entities
         public int UserId { get; set; }
         // public int BookingId { get; set; }
         public int PaymentMethodId { get; set; }
-        public int PaymentStatusId { get; set; }
+        public int StatusId { get; set; }
 
         // Money
         public decimal Amount { get; set; }
@@ -30,7 +30,7 @@ namespace WhiteLagoon.Domain.Entities
 
         // Navigations props
         public PaymentMethod PaymentMethod { get; set; }
-        public PaymentStatus PaymentStatus { get; set; }
+        public Status PaymentStatus { get; set; }
         public User User { get; set; }
     }
 }

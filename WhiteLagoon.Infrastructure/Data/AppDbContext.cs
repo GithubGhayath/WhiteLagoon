@@ -15,7 +15,7 @@ namespace WhiteLagoon.Infrastructure.Data
         public DbSet<Amenity> Amenities { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
-        public DbSet<PaymentStatus> PaymentStatues { get; set; }
+        public DbSet<Status> Statues { get; set; }
         public DbSet<Payment> Payments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
