@@ -1,0 +1,204 @@
+﻿@model BookVM
+
+@{
+    ViewData["Title"] = "Book Villa";
+    var villa = Model.Villa;
+}
+
+<style>
+    body {
+        background-color: #121212;
+        color: #f8f9fa;
+    }
+
+    .booking-container {
+        margin-top: 40px;
+    }
+
+    .villa-preview {
+        background: #1e1e2f;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+    }
+
+    .villa-img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+
+    .villa-body {
+        padding: 20px;
+    }
+
+    .booking-form {
+        background: #1e1e2f;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+    }
+
+    .form-control {
+        background-color: #2c2f33;
+        border: 1px solid #444;
+        color: #fff;
+        border-radius: 8px;
+    }
+
+        .form-control:focus {
+            background-color: #2c2f33;
+            color: white;
+            border-color: #0d6efd;
+            box-shadow: none;
+        }
+
+    .price-box {
+        background: #2c2f33;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 15px;
+    }
+
+    .btn-book {
+        background-color: #0d6efd;
+        border-radius: 10px;
+        padding: 10px;
+    }
+</style>
+
+<div class="container booking-container">
+
+    <div class="row g-4">
+
+        <!-- LEFT: VILLA DETAILS -->
+        <div class="col-md-6">
+            <div class="villa-preview">
+
+                <img src="@villa?.ImageUrl" class="villa-img" />
+
+                <div class="villa-body">
+                    <h4>@villa?.Name</h4>
+                    <p>@villa?.Description</p>
+
+                    <hr />
+
+                    <div>
+                        <strong>Price:</strong> $@villa?.Price / night <br />
+                        <strong>Size:</strong> @villa?.Sqft sqft <br />
+                        <strong>Guests:</strong> @villa?.Occupancy
+                    </div>
+
+                    <hr />
+
+                    <h6>Amenities</h6>
+                    <ul>
+                        @if (villa?.Amenities != null)
+                        {
+                            foreach (var a in villa.Amenities)
+                            {
+                                <li>@a.Name</li>
+                            }
+                        }
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- RIGHT: BOOKING FORM -->
+        <div class="col-md-6">
+            <div class="booking-form">
+
+                <h4 class="mb-4">
+                    <i class="bi bi-calendar-check"></i> Book This Villa
+                </h4>
+
+                <form asp-action="Book" method="post">
+
+                    <!-- Hidden System Fields -->
+                    <input type="hidden" asp-for="Book.VillaId" value="@villa?.Id" />
+                    <input type="hidden" asp-for="Book.PricePerNight" value="@villa?.Price" />
+
+                    <!-- USER INPUT -->
+
+                    <div class="mb-3">
+                        <label class="form-label">Check-In Date</label>
+                        <input type="date" class="form-control" asp-for="Book.CheckInDate" id="checkIn" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nights</label>
+                        <input type="number" class="form-control" asp-for="Book.Nights" id="nights" min="1" max="30" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Guests</label>
+                        <input type="number" class="form-control" asp-for="Book.Guests" min="1" max="@villa?.Occupancy" required />
+                    </div>
+
+                    <!-- AUTO CALCULATED -->
+
+                    <div class="price-box">
+                        <div>
+                            <strong>Check-Out:</strong>
+                            <span id="checkoutText">-</span>
+                        </div>
+
+                        <div class="mt-2">
+                            <strong>Total Price:</strong>
+                            <span id="totalText">$0</span>
+                        </div>
+                    </div>
+
+                    <!-- Hidden Calculated Fields -->
+                    <input type="hidden" asp-for="Book.CheckOutDate" id="checkout" />
+                    <input type="hidden" asp-for="Book.TotalAmount" id="total" />
+
+                    <button type="submit" class="btn btn-book w-100 mt-4">
+                        <i class="bi bi-check-circle"></i> Confirm Booking
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    const price = @(villa?.Price ?? 0);
+
+    const checkIn = document.getElementById("checkIn");
+    const nights = document.getElementById("nights");
+
+    const checkoutText = document.getElementById("checkoutText");
+    const totalText = document.getElementById("totalText");
+
+    const checkoutInput = document.getElementById("checkout");
+    const totalInput = document.getElementById("total");
+
+    function calculate() {
+        if (!checkIn.value || !nights.value) return;
+
+        const start = new Date(checkIn.value);
+        const nightsVal = parseInt(nights.value);
+
+        const checkout = new Date(start);
+        checkout.setDate(start.getDate() + nightsVal);
+
+        const total = nightsVal * price;
+
+        checkoutText.innerText = checkout.toISOString().split('T')[0];
+        totalText.innerText = "$" + total;
+
+        checkoutInput.value = checkout.toISOString();
+        totalInput.value = total;
+    }
+
+    checkIn.addEventListener("change", calculate);
+    nights.addEventListener("input", calculate);
+</script>

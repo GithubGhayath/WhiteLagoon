@@ -91,6 +91,11 @@
         font-weight: bold;
         color: #0d6efd;
     }
+
+    /* NEW (minimal safe addition) */
+    .btn-book {
+        border-radius: 6px;
+    }
 </style>
 
 <!-- HERO -->
@@ -160,12 +165,21 @@
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <div class="price">$@villa.Price / night</div>
 
-                                <!-- BUTTON -->
-                                <button class="btn btn-sm btn-outline-light"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#@modalId">
-                                    View
-                                </button>
+                                <div>
+                                    <!-- EXISTING VIEW BUTTON -->
+                                    <button class="btn btn-sm btn-outline-light"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#@modalId">
+                                        View
+                                    </button>
+
+                                    <!-- NEW BOOK BUTTON -->
+                                    <a asp-action="Book"
+                                           asp-route-id="@villa.Id"
+                                           class="btn btn-sm btn-success btn-book @(villa.IsBooked ? "disabled" : "")">
+                                        Book
+                                    </a>
+                                </div>
                             </div>
 
                         </div>
