@@ -18,7 +18,7 @@ namespace WhiteLagoon.Infrastructure.Repositories
             Entity = _Context.Set<T>();
         }
 
-        public void Add(T entity)
+        public virtual void Add(T entity)
         {
             Entity.Add(entity);
         }
@@ -65,7 +65,7 @@ namespace WhiteLagoon.Infrastructure.Repositories
             return Query.ToList();
         }
 
-        public void Remove(T entity)
+        public virtual void Remove(T entity)
         {
             Entity.Remove(entity);
         }

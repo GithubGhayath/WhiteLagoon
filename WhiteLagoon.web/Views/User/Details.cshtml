@@ -1,0 +1,143 @@
+﻿@model User
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<style>
+    .details-container {
+        margin-top: 40px;
+        max-width: 800px;
+        background-color: #1e1e2f;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+        color: #f8f9fa;
+    }
+
+    .details-title {
+        margin-bottom: 25px;
+    }
+
+    .details-row {
+        margin-bottom: 15px;
+    }
+
+    .details-label {
+        margin-bottom:12px;
+        font-weight: 600;
+        color: #adb5bd;
+    }
+
+    .details-value {
+        font-size: 1.05rem;
+    }
+
+    .badge-active {
+        background-color: #198754;
+        padding: 6px 10px;
+        border-radius: 6px;
+    }
+
+    .badge-deleted {
+        background-color: #dc3545;
+        padding: 6px 10px;
+        border-radius: 6px;
+    }
+
+    .btn-back {
+        margin-top: 25px;
+        background-color: #6c757d;
+        color: white;
+        border-radius: 8px;
+        padding: 8px 16px;
+        text-decoration: none;
+    }
+
+    .btn-edit {
+        margin-top: 25px;
+        margin-right: 10px;
+        background-color: #0d6efd;
+        color: white;
+        border-radius: 8px;
+        padding: 8px 16px;
+        text-decoration: none;
+    }
+</style>
+
+<div class="container details-container">
+
+    <h2 class="details-title">
+        <i class="bi bi-person-lines-fill"></i> User Details
+    </h2>
+
+    <div class="details-row">
+        <div class="details-label">Username</div>
+        <div class="details-value">@Model.UserName</div>
+    </div>
+
+    <div class="details-row">
+        <div class="details-label">Full Name</div>
+        <div class="details-value">@Model.FullName</div>
+    </div>
+
+    <div class="details-row">
+        <div class="details-label">Email</div>
+        <div class="details-value">@Model.Email</div>
+    </div>
+
+    <div class="details-row">
+        <div class="details-label">Phone Number</div>
+        <div class="details-value">@Model.PhoneNumber</div>
+    </div>
+
+    <div class="details-row">
+        <div class="details-label">Status</div>
+        <div class="details-value">
+            @if (!Model.IsDeleted)
+            {
+                <span class="badge-active">Active</span>
+            }
+            else
+            {
+                <span class="badge-deleted">Deleted</span>
+            }
+        </div>
+    </div>
+
+    <div class="details-row">
+        <div class="details-label">Created At</div>
+        <div class="details-value">
+            @(Model.CreatedAt?.ToString("yyyy-MM-dd HH:mm") ?? "-")
+        </div>
+    </div>
+
+    <div class="details-row">
+        <div class="details-label">Last Updated</div>
+        <div class="details-value">
+            @(Model.UpdatedAt?.ToString("yyyy-MM-dd HH:mm") ?? "-")
+        </div>
+    </div>
+
+    <div class="details-row">
+        <div class="details-label">Payments Count</div>
+        <div class="details-value">
+            @(Model.Payments?.Count ?? 0)
+        </div>
+    </div>
+
+    <div class="details-row">
+        <div class="details-label">Books Count</div>
+        <div class="details-value">
+            @(Model.Books?.Count ?? 0)
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div>
+        <a asp-action="Index" class="btn-back">
+            Back to List
+        </a>
+    </div>
+
+</div>

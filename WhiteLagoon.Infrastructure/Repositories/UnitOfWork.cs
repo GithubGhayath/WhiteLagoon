@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using WhiteLagoon.Application.Common;
 using WhiteLagoon.Application.Common.Interfaces;
 using WhiteLagoon.Infrastructure.Data;
 
@@ -16,6 +17,7 @@ namespace WhiteLagoon.Infrastructure.Repositories
             VillaNumber = new VillaNumberRepository(_Context);
             Amenity = new AmenityRepository(_Context);
             PaymentMethod = new PaymentMethodRepository(_Context);
+            Users = new UserRepository(_Context);
         }
         public IVillaRepository Villa { get; private set; }
 
@@ -24,6 +26,8 @@ namespace WhiteLagoon.Infrastructure.Repositories
         public IAmenityReopsitory Amenity { get; private set; }
 
         public IPaymentMethodRepository PaymentMethod { get; private set; }
+
+        public IUserRepository Users { get; private set; }
 
         public int Save()
         {

@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "5aiH08cMxfo=",
+  "dgSpecHash": "AiF+h7HQWgc=",
   "success": true,
   "projectFilePath": "C:\\Users\\shiha_a8q6i0r\\Desktop\\WhiteLagoon\\WhiteLagoon.web\\WhiteLagoon.web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\shiha_a8q6i0r\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\shiha_a8q6i0r\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",
+    "C:\\Users\\shiha_a8q6i0r\\.nuget\\packages\\bcrypt.net-next\\4.1.0\\bcrypt.net-next.4.1.0.nupkg.sha512",
     "C:\\Users\\shiha_a8q6i0r\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\shiha_a8q6i0r\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\8.0.0\\microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
     "C:\\Users\\shiha_a8q6i0r\\.nuget\\packages\\microsoft.bcl.cryptography\\9.0.4\\microsoft.bcl.cryptography.9.0.4.nupkg.sha512",

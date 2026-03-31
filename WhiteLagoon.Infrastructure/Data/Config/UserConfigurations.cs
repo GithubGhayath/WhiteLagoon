@@ -19,6 +19,8 @@ namespace WhiteLagoon.Infrastructure.Data.Config
             builder.Property(u => u.FullName).HasColumnType("NVARCHAR").HasMaxLength(200).IsRequired(true);
             builder.Property(u => u.PhoneNumber).HasColumnType("NVARCHAR").HasMaxLength(100).IsRequired(true);
             builder.Property(u => u.Email).HasColumnType("NVARCHAR").HasMaxLength(100).IsRequired(true);
+            builder.Property(e => e.CreatedAt).HasColumnType("datetime2").IsRequired(false);
+            builder.Property(e => e.UpdatedAt).HasColumnType("datetime2").IsRequired(false);
         }
     }
 }
