@@ -21,7 +21,8 @@ namespace WhiteLagoon.Domain.Entities
         public int Sqft {  get; set; }
         [Range(1, 20)]
         public int Occupancy {  get; set; }
-      
+        public bool IsBooked { get; set; } 
+
         public string? ImageUrl {  get; set; }
         [NotMapped]
         public IFormFile? Image { get; set; }

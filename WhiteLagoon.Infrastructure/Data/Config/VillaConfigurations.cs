@@ -14,7 +14,8 @@ namespace WhiteLagoon.Infrastructure.Data.Config
             builder.ToTable("Villas");
             builder.HasKey(v => v.Id);
             builder.Property(v => v.Id).ValueGeneratedOnAdd();
-           
+            builder.Property(e => e.IsBooked).HasDefaultValue(false);
+
         }
 
      
