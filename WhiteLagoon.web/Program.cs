@@ -14,6 +14,22 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
+// Adding CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ClientsApiCorsPolicy", policy =>
+    {
+        policy
+            .WithOrigins(
+                "https://localhost:7223",
+                "http://localhost:5228"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
+
 var app = builder.Build();
 
 
@@ -29,6 +45,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("ClientsApiCorsPolicy"); // Apply CORS
 app.UseRouting();
 
 app.UseAuthorization();
@@ -37,8 +54,17 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
+    pattern: "{controller=Auth}/{action=Login}/{id?}")
+    .WithStaticAssets();
+
+// The default page:
+/*
+  
+    app.MapControllerRoute(
+    name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+*/
 
 app.Run();
