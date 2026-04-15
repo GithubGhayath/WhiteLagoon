@@ -5,9 +5,12 @@ using WhiteLagoon.Application.Common.Interfaces;
 using WhiteLagoon.Domain.Entities;
 using WhiteLagoon.Infrastructure.Data;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
+using WhiteLagoon.web.ViewModels.Roles;
 
 namespace WhiteLagoon.web.Controllers
 {
+    [Authorize(Roles =Roles.Admin)]
     public class VillaController : Controller
     {
         private readonly IUnitOfWork _IUnitOfWork;

@@ -18,6 +18,7 @@ namespace WhiteLagoon.Infrastructure.Repositories
             Amenity = new AmenityRepository(_Context);
             PaymentMethod = new PaymentMethodRepository(_Context);
             Users = new UserRepository(_Context);
+            Statues = new StatusReopsitory(context);
         }
         public IVillaRepository Villa { get; private set; }
 
@@ -28,6 +29,8 @@ namespace WhiteLagoon.Infrastructure.Repositories
         public IPaymentMethodRepository PaymentMethod { get; private set; }
 
         public IUserRepository Users { get; private set; }
+
+        public IStatusReopsitory Statues { get; private set; }
 
         public int Save()
         {

@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata;
 using WhiteLagoon.Application.Common.Interfaces;
 using WhiteLagoon.Domain.Entities;
 using WhiteLagoon.Infrastructure.Repositories;
+using WhiteLagoon.web.ViewModels.Roles;
 
 namespace WhiteLagoon.web.Controllers
 {
+    [Authorize(Roles = Roles.Admin)]
     public class PaymentMethodController : Controller
     {
         private readonly IUnitOfWork _IUnityOfWork;

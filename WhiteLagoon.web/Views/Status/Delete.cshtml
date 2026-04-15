@@ -1,0 +1,39 @@
+﻿@model Status
+
+@{
+    ViewData["Title"] = "Delete Status";
+}
+
+<div class="container mt-4 text-light">
+
+    <h2 class="text-danger mb-3">
+        <i class="bi bi-exclamation-triangle"></i> Delete Status
+    </h2>
+
+    <div class="bg-dark p-4 rounded shadow">
+
+        <p class="text-warning">
+            Are you sure you want to delete this status?
+        </p>
+
+        <div class="mb-3">
+            <strong>Name:</strong> @Model.Name
+        </div>
+
+        <div class="mb-3">
+            <strong>Description:</strong> @Model.Description
+        </div>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Delete
+            </button>
+
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+
+    </div>
+
+</div>

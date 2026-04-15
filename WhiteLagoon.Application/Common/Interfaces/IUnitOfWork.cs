@@ -11,6 +11,8 @@ namespace WhiteLagoon.Application.Common.Interfaces
         IAmenityReopsitory Amenity { get; }
         IPaymentMethodRepository PaymentMethod { get; }
         IUserRepository Users { get; }
+        IStatusReopsitory Statues { get; }
+   
         int Save();
     }
 }
